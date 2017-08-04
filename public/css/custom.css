@@ -1,0 +1,180 @@
+.btn-circle, .btn-circle2 {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+.btn-circle2 {
+    border: 1px solid grey;
+    background-color: #4cae4c;
+    color: white;
+}
+.greenbox, .box {
+    border: 2px solid #4cae4c;
+    height: 3em;
+    line-height: 3em;
+    text-align: center;
+}
+.box {
+    line-height: 1.5em;
+    height: 1.7em;
+    border-radius: 10px;
+    background-color: #fcfcfc;
+    margin-bottom: 0.1em;
+    border: 1px solid #e0e0e0;
+}
+.top--30px {
+    margin-top: -30px;
+}
+.bntz {
+    height: 3em;
+    line-height: 3em;
+}
+.addrr {
+    color: #4cae4c;
+}
+.imgcenter {
+    min-height: 150px;
+    height: 100%;
+    min-width: 150px;
+    width: 100%;
+    background-image: url("/img/car.png");
+    background-size: 150px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    text-align: center;
+}
+.carnum {
+    height: 40px;
+    width: 40px;
+    border-radius: 15px;
+    line-height: 40px;
+    border: 1px solid white;
+    background: #4cae4c;
+    color: white;
+    font-size: 2.5em;
+    margin: auto;
+}
+.passnum {
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+    line-height: 30px;
+    border: 1px solid white;
+    background: #4cae4c;
+    color: white;
+    font-size: 1.5em;
+    margin: auto;
+    margin-top: 3.5em;
+}
+.btn-lit {
+    margin: 0;
+    padding: 0;
+    height: 1.5em;
+    width: 1.5em;
+    line-height: 1.5em;
+    border-radius: 0.75em;
+    font-size: 1em;
+    display: none;
+}
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+.logo-img{
+    max-height: 128px;
+    max-width: 128px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.material-switch > input[type="checkbox"] {
+    display: none;   
+}
+
+.material-switch > label {
+    cursor: pointer;
+    height: 0px;
+    position: relative; 
+    width: 40px;  
+}
+
+.material-switch > label::before {
+    background: rgb(0, 0, 0);
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    content: '';
+    height: 16px;
+    margin-top: -8px;
+    position:absolute;
+    opacity: 0.3;
+    transition: all 0.4s ease-in-out;
+    width: 40px;
+}
+.material-switch > label::after {
+    background: rgb(255, 255, 255);
+    border-radius: 16px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    content: '';
+    height: 24px;
+    left: -4px;
+    margin-top: -8px;
+    position: absolute;
+    top: -4px;
+    transition: all 0.3s ease-in-out;
+    width: 24px;
+}
+.material-switch > input[type="checkbox"]:checked + label::before {
+    background: inherit;
+    opacity: 0.5;
+}
+.material-switch > input[type="checkbox"]:checked + label::after {
+    background: inherit;
+    left: 20px;
+}
+
+.list-group-item, .custom {
+    padding: 7px 15px;
+}
+
+.list-group.customli{
+    margin-bottom:0px;
+}
+
+.bestell {
+    margin-left: 10px;
+    font-size: 0.9em;
+}
+
+.comment-header {
+    color: #5bad4c;
+}
+
+.comment {
+    padding: 2px;
+    padding-left: 10px;
+}
+
+.commentpanel {
+    margin-bottom: 5px;
+    
+}
