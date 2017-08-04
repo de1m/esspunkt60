@@ -2,6 +2,8 @@
 
 var eatPoint = require('../database').models.eatPoint;
 var eatDays = require('../models/eatDay');
+var fs = require('fs');
+var path = require('path');
 
 var create = function (data, callback) {
     var neweatPoint = new eatPoint(data);
@@ -46,6 +48,37 @@ var findNamed = function (locName, callback) {
 }
 
 var deleteLocation = function (locName, callback) {
+    findNamed(locName, function(err, result){
+        var scriptdir = path.dirname(process.argv[1]);
+        if(err){
+            return callback(err, null);
+        } else {
+            var docpath = {
+                'path': result[0].doc.path,
+                'stat': result[0].doc.uploaded
+            }
+            var imgpath = {
+                'path': result[0].img.path,
+                'stat': result[0].img.uploaded
+            }
+            if(docpath.stat === true){
+                //exist
+                fs.unlink(scriptdir + "/public" + docpath.path, function(err, result){
+                    if(err){
+                        console.log(err);
+                    }
+                });
+            }
+            if(imgpath.stat === true){
+                //exist
+                fs.unlink(scriptdir + "/public" + imgpath.path, function(err, result){
+                    if(err){
+                        console.log(err);
+                    }
+                });
+            }
+        }
+    })
     eatPoint.remove({ 'name': locName }, function (err, result) {
         if (err) {
             return callback(err, null);
