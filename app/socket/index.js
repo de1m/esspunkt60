@@ -4,6 +4,7 @@ var fs = require('fs');
 var SocketIOFile = require('socket.io-file');
 var eatLocation = require('../location');
 var user = require('../user');
+var path = require('path');
 
 var uploadFiles = {};
 var allInfoObj = {};
@@ -50,7 +51,7 @@ module.exports = {
             });
             uploader.on('complete', (fileInfo) => {
                 // console.log('Upload Complete.');
-
+                var scriptdir = path.dirname(process.argv[1]);
                 //sort files
                 var mime = fileInfo.mime.split('/');
                 var randomNum = (new Date()).valueOf().toString() + Math.random().toString();
@@ -64,13 +65,13 @@ module.exports = {
                 if (mime[1] === 'png') {
                     uploadFiles.logo = {
                         'tmp': fileInfo.uploadDir,
-                        'path': './public/upload/images/' + randomNum + '.png'
+                        'path': scriptdir + '/public/upload/images/' + randomNum + '.png'
                     }
                 }
                 if (mime[1] === 'jpeg') {
                     uploadFiles.logo = {
                         'tmp': fileInfo.uploadDir,
-                        'path': './public/upload/images/' + randomNum + '.jpeg'
+                        'path': scriptdir + '/public/upload/images/' + randomNum + '.jpeg'
                     }
                 }
             });

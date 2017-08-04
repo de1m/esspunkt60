@@ -38,7 +38,7 @@ function saveLocation(infoArr, callback) {
             rated: ''
         }
     };
-
+    
     if (locInfo.img.uploaded) {
 
         let fileSource = fs.createReadStream(tempInfo.logo.tmp);
@@ -97,7 +97,6 @@ function saveLocation(infoArr, callback) {
             });
         }
     }
-
     //save to db
     eatPoint.create(mongoObj, function (err, result) {
         if (err) {

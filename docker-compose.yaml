@@ -14,13 +14,13 @@ services:
       - MONGODB_APPLICATION_PASS=essen6003
 
   esspunkt:
-    build: .
+    image: de1m/esspunkt60
     depends_on:
       - mongo
     links:
       - mongo
     volumes:
-      - ./app/upload:/esspunkt60/public/upload
+      - /app/upload:/esspunkt60/public/upload
     ports:
       - "5000:5000"
     environment:
