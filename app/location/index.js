@@ -1,6 +1,6 @@
 'use strict'
 
-var sharp = require('sharp');
+var jimp = require("jimp");
 var eatPoint = require('../models/eatPoint');
 var dailyPoint = require('../models/eatDay');
 var user = require('../user');
@@ -39,10 +39,6 @@ function saveLocation(infoArr, callback) {
         }
     };
     if (locInfo.img.uploaded) {
-
-        let fileSource = fs.createReadStream(tempInfo.logo.tmp);
-        let fileTarget = fs.createWriteStream(tempInfo.logo.path);
-        fileSource.pipe(fileTarget);
 
         mongoObj.img.name = locInfo.img.name;
         mongoObj.img.uploaded = true;
@@ -84,22 +80,15 @@ function saveLocation(infoArr, callback) {
     var resize = function () {
         //console.log("++++++", isEmptyObject(tempInfo));
         if (!isEmptyObject(tempInfo)) {
-            fs.unlink(tempInfo.logo.tmp, function (err) {
-                if (err) {
-                    console.error(err);
-                } else {
-                    sharp(tempInfo.logo.path).resize(128).toFile(tempInfo.logo.tmp, function (err) {
-                        if(err){
-                            return callbac(err,null);
-                        } else {
-                            var source = fs.createReadStream(tempInfo.logo.tmp);
-                            var target = fs.createWriteStream(tempInfo.logo.path);
 
-                            source.pipe(target);
-                        }
-                    });
-                }
+            jimp.read(tempInfo.logo.tmp, function (err, image) {
+                // do stuff with the image (if no exception)
+                image.scaleToFit(128, 128).write(tempInfo.logo.path);
+
+                fs.unlink(tempInfo.logo.tmp);
+
             });
+
         }
     }
     //save to db
