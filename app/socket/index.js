@@ -33,8 +33,9 @@ module.exports = {
     start: function (io) {
         io.on('connection', function (socket) {
             console.log('client connected');
+            var scriptdir = path.dirname(process.argv[1]);
             var uploader = new SocketIOFile(socket, {
-                uploadDir: './tmp',							// simple directory
+                uploadDir: scriptdir + '/tmp',							// simple directory
                 accepts: ['image/png', 'image/jpeg', 'application/pdf'],		// chrome and some of browsers checking mp3 as 'audio/mp3', not 'audio/mpeg'
                 maxFileSize: 4194304, 						// 4 MB. default is undefined(no limit)
                 chunkSize: 10240,							// default is 10240(1KB)
@@ -51,7 +52,6 @@ module.exports = {
             });
             uploader.on('complete', (fileInfo) => {
                 // console.log('Upload Complete.');
-                var scriptdir = path.dirname(process.argv[1]);
                 //sort files
                 var mime = fileInfo.mime.split('/');
                 var randomNum = (new Date()).valueOf().toString() + Math.random().toString();
@@ -59,7 +59,7 @@ module.exports = {
                     //var fileDest = fs.createWriteStream('./public/upload/docs/' + randomNum + '.pdf');
                     uploadFiles.menu = {
                         'tmp': fileInfo.uploadDir,
-                        'path': './public/upload/docs/' + randomNum + '.pdf'
+                        'path': scriptdir + '/public/upload/docs/' + randomNum + '.pdf'
                     }
                 }
                 if (mime[1] === 'png') {
