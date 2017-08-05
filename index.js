@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-var fs = require('fs');
+var mkdirp = require('mkdirp');
 
 var appPort = process.env.APPPORT || "5000"
 
@@ -24,37 +24,14 @@ io.attach(server);
 var socket = require('./app/socket');
 socket.start(io);
 
-checkDirectory(__dirname + '/public/upload', function (err, uploadDir) {
-  if (err) {
-    console.log(err);
-  } else {
-    checkDirectory(__dirname + '/public/upload/doc', function (err, docDir) {
-      if (err) {
-        console.log(err);
-      }
-    })
-    checkDirectory(__dirname + '/public/upload/images', function (err, docDir) {
-      if (err) {
-        console.log(err);
-      }
-    })
-  }
-});
-
-function checkDirectory(directory, callback) {
-  fs.exists(directory, function (err, stat) {
+mkdirp(__dirname + '/public/upload/docs', function (err) {
     if (err) {
-      return callback(err, null);
+        console.error(err);
     } else {
-      if (!stat) {
-        fs.mkdir(directory, function (err, result) {
-          if (err) {
-            return callback(err, null);
-          } else {
-            return callback(null, result);
-          }
-        })
-      }
+        mkdirp(__dirname + '/public/upload/images', function (err) {
+            if (err) {
+                console.error(err);
+            }
+        });
     }
-  })
-}
+});
