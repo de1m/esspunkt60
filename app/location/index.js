@@ -38,7 +38,6 @@ function saveLocation(infoArr, callback) {
             rated: ''
         }
     };
-    
     if (locInfo.img.uploaded) {
 
         let fileSource = fs.createReadStream(tempInfo.logo.tmp);
@@ -50,7 +49,8 @@ function saveLocation(infoArr, callback) {
         mongoObj.img.path = tempInfo.logo.path
 
         let filePathSplit = tempInfo.logo.path.split('/');
-        mongoObj.img.path = '/' + filePathSplit[2] + '/' + filePathSplit[3] + '/' + filePathSplit[4]
+        let lengArr = filePathSplit.length;
+        mongoObj.img.path = '/' + filePathSplit[lengArr - 3] + '/' + filePathSplit[lengArr - 2] + '/' + filePathSplit[lengArr - 1]
 
 
     } else {
@@ -67,8 +67,9 @@ function saveLocation(infoArr, callback) {
         mongoObj.doc.name = locInfo.doc.name;
         mongoObj.doc.uploaded = true;
 
-        let filePathSplit = tempInfo.menu.path.split('/');
-        mongoObj.doc.path = '/' + filePathSplit[2] + '/' + filePathSplit[3] + '/' + filePathSplit[4]
+        let docPathSplit = tempInfo.menu.path.split('/');
+        let dlengArr = docPathSplit.length;
+        mongoObj.doc.path = '/' + docPathSplit[dlengArr - 3] + '/' + docPathSplit[dlengArr - 2] + '/' + docPathSplit[dlengArr - 1]
 
     } else {
         mongoObj.doc.uploaded = false;
@@ -112,7 +113,9 @@ function saveLocation(infoArr, callback) {
                 return callback(err, null);
             }
         } else {
-            resize();
+            if (locInfo.img.uploaded) {
+                resize();
+            }
             return callback(null, { 'status': true, 'output': result });
         }
     })

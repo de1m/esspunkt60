@@ -106,7 +106,6 @@ module.exports = {
             socket.on('saveNewLocation', function (location) {
 
                 eatLocation.saveLocation({ location, uploadFiles }, function (err, result) {
-
                     if (err) {
                         socket.emit("saveNewLocationStat", err)
                     } else {
@@ -129,6 +128,7 @@ module.exports = {
                 if (uploadFiles.menu !== undefined) {
                     fs.unlink(uploadFiles.menu.tmp);
                 }
+                uploadFiles = {};
             })
 
             socket.on('deleteUserFinger', function (uPrint) {

@@ -115,7 +115,6 @@ var updateRating = function (ratingObj, callback) {
     //     'value': ,
     //     'rated':
     // }
-    console.log(ratingObj);
     eatPoint.update( {'name': ratingObj.name},{$set: {'rating.value': ratingObj.value, 'rating.rated': ratingObj.rated } }, function(err, updateResult){
         if(err){
             return callback(err, null);

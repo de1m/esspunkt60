@@ -56,7 +56,7 @@ function createConfigModal() {
                                 </div>
                                 <div class="modal-footer">
                                     <button class="btn btn-default" type="button" data-dismiss="modal" onclick="deleteUserLocationButt()">Abbrechen</button>
-                                    <button class="btn btn-success" type="button" data-dismiss="modal" onclick="addNewLocation()">Erstellen</button>
+                                    <button class="btn btn-success" id="createEssPunktButton" disabled type="button" data-dismiss="modal" onclick="addNewLocation()">Erstellen</button>
                                 </div>
                             </div>
                         </div>

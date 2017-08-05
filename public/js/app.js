@@ -75,46 +75,55 @@ $(document).on('click', 'ul li a', function () {
         $(colPar).append(delButton);
         colPar.id = "LocObjDelPoint"
     }
+
+    var createBut = document.getElementById('createEssPunktButton');
+    createBut.disabled = false;
+
 })
 
 $(document).on('change', '#menuFile', function () {
     var inFile = this;
-    if (inFile.files && inFile.files[0]) {
+    var mime = inFile.files[0].type.split("/");
+    if(mime[1] === 'pdf'){
+        if (inFile.files && inFile.files[0]) {
 
-        uploader.on('stream', function (fileInfo) {
+            uploader.on('stream', function (fileInfo) {
 
-            $('#saveConfigModal').prop('disabled', true);
+                $('#saveConfigModal').prop('disabled', true);
 
-            var proginPerc = Math.round((fileInfo.sent * 100) / fileInfo.size);
-            $('.progress').css({ 'display': 'block' });
-            $('.progress .progress-bar').text(proginPerc + '%');
-            $('.progress .progress-bar').css({ 'width': proginPerc + '%' });
+                var proginPerc = Math.round((fileInfo.sent * 100) / fileInfo.size);
+                $('.progress').css({ 'display': 'block' });
+                $('.progress .progress-bar').text(proginPerc + '%');
+                $('.progress .progress-bar').css({ 'width': proginPerc + '%' });
 
-        });
-        uploader.on('complete', function (fileInfo) {
-            //console.log('Upload Complete', fileInfo);
+            });
+            uploader.on('complete', function (fileInfo) {
+                //console.log('Upload Complete', fileInfo);
 
-            $('div').remove('.progress .progress-bar');
-            $('.proginfo').text("Upload complete: " + fileInfo.name);
-            $('.proginfo').css({ 'margin-top': '0.5em' });
-            $('#saveConfigModal').prop('disabled', false);
+                $('div').remove('.progress .progress-bar');
+                $('.proginfo').text("Upload complete: " + fileInfo.name);
+                $('.proginfo').css({ 'margin-top': '0.5em' });
+                $('#saveConfigModal').prop('disabled', false);
 
-            if (fileInfo.mime === 'application/pdf') {
-                uploadInformation.menu = {
-                    'name': fileInfo.name,
-                    'uploaded': true
+                if (fileInfo.mime === 'application/pdf') {
+                    uploadInformation.menu = {
+                        'name': fileInfo.name,
+                        'uploaded': true
+                    }
                 }
-            }
-        });
-        uploader.on('error', function (err) {
-            alert('Err on download: ' + err);
-        });
-        uploader.on('abort', function (fileInfo) {
-            //console.log('Aborted: ', fileInfo);
-        });
+            });
+            uploader.on('error', function (err) {
+                alert('Err on download: ' + err);
+            });
+            uploader.on('abort', function (fileInfo) {
+                //console.log('Aborted: ', fileInfo);
+            });
 
-        var menuFile = document.getElementById('menuFile');
-        var uploadIds = uploader.upload(menuFile);
+            var menuFile = document.getElementById('menuFile');
+            var uploadIds = uploader.upload(menuFile);
+        }
+    } else {
+        alert("File not pdf");
     }
 })
 
