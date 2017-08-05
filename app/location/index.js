@@ -1,6 +1,6 @@
 'use strict'
 
-var jimp = require('jimp');
+var sharp = require('sharp');
 var eatPoint = require('../models/eatPoint');
 var dailyPoint = require('../models/eatDay');
 var user = require('../user');
@@ -88,11 +88,15 @@ function saveLocation(infoArr, callback) {
                 if (err) {
                     console.error(err);
                 } else {
-                    //resize image
-                    jimp.read(tempInfo.logo.path, function (err, image) {
-                        // do stuff with the image (if no exception)
-                        image.scaleToFit(128, 128)
-                            .write(tempInfo.logo.path);
+                    sharp(tempInfo.logo.path).resize(128).toFile(tempInfo.logo.tmp, function (err) {
+                        if(err){
+                            return callbac(err,null);
+                        } else {
+                            var source = fs.createReadStream(tempInfo.logo.tmp);
+                            var target = fs.createWriteStream(tempInfo.logo.path);
+
+                            source.pipe(target);
+                        }
                     });
                 }
             });
@@ -333,9 +337,9 @@ function isEmptyObject(obj) {
     return true;
 }
 
-function addComment(commObj, callback){
-    dailyPoint.addComment(commObj, function(err,  result){
-        if(err){
+function addComment(commObj, callback) {
+    dailyPoint.addComment(commObj, function (err, result) {
+        if (err) {
             return callback(err, null);
         } else {
             return callback(null, result);
