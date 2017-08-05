@@ -19,8 +19,8 @@ services:
       - mongo
     links:
       - mongo
-    volumes:
-      - /app/upload:/esspunkt60/public/upload
+    # volumes:
+    #   - /app/upload:/esspunkt60/public/upload
     ports:
       - "5000:5000"
     environment:
