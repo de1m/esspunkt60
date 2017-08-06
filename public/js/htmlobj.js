@@ -235,7 +235,16 @@ function appendDailyPoint(point) {
         }
 
         appendComment(commOjb);
+
     }
+
+    var txt = document.getElementById('commentarInput' + point.points[0].name + point.location.time);
+    txt.addEventListener("keypress", function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13') {
+            addComment(point.points[0].name + point.location.time + `;` + point.points[0].name);
+        }
+    });
 }
 
 function appendComment(commObj) {
@@ -367,7 +376,7 @@ function createUserDialog() {
                             <div class="col-lg-12"><span>Benutzer wird anhand von <a href="https://de.wikipedia.org/wiki/Canvas_Fingerprinting">Fingerprint</a> identifiziert und es funktionier nur innerhalb eines Browsers. <br><br></span></div>
                                 <form>
                                     <div class="form-group">
-                                        <div class="col-lg-12"><input class="form-control" type="text" name="userNameFPrint" placeholder="Benutzername" required=""></div>
+                                        <div class="col-lg-12"><input id="addUserdiv" class="form-control" type="text" name="userNameFPrint" placeholder="Benutzername" required=""></div>
                                         </div>
                                 </form>
                             </div>
@@ -380,6 +389,13 @@ function createUserDialog() {
     $('#userCreateDialog').modal({
         backdrop: 'static',
         keyboard: false
+    });
+
+    $('#addUserdiv').keypress(function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13') {
+            saveNewUser();
+        }
     });
 }
 

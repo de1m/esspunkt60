@@ -3,7 +3,7 @@ version: "2"
 services:
   mongo:
     volumes:
-      - /mongodb:/data/db
+      - /data/mongo:/data/db
     image: aashreys/mongo-auth:latest
     environment:
       - AUTH=yes
@@ -11,7 +11,7 @@ services:
       - MONGODB_ADMIN_PASS=adminALmfaAf9A
       - MONGODB_APPLICATION_DATABASE=esspunkt60
       - MONGODB_APPLICATION_USER=essen
-      - MONGODB_APPLICATION_PASS=essen6003
+      - MONGODB_APPLICATION_PASS=essen6003"
 
   esspunkt:
     image: de1m/esspunkt60
@@ -20,7 +20,7 @@ services:
     links:
       - mongo
     volumes:
-      - /app/upload:/esspunkt60/public/upload
+      - /data/upload:/esspunkt60/public/upload
     ports:
       - "5000:5000"
     environment:
