@@ -44,3 +44,12 @@ You can edit the file or you an set environment variables
 Show the file docker-compose.yaml
 Edit this file if needed.
 
+```
+      - WEBSOCKETADDR=mongo
+      - WEBSOCKETPORT=5000
+      - MONGOADDR=mongo
+      - MONGOPORT=27017
+      - MONGODB=esspunkt60
+      - AUTH=false
+```
+If you need, you can enable mongo authentification (AUTH=true), use for this the variables "MONGOUSER=user" and "MONGOPASS=pass"

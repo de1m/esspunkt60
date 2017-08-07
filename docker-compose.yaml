@@ -22,4 +22,5 @@ services:
       - MONGOADDR=mongo
       - MONGOPORT=27017
       - MONGODB=esspunkt60
+      - AUTH=false
     restart: unless-stopped
