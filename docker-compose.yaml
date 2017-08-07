@@ -4,14 +4,7 @@ services:
   mongo:
     volumes:
       - /data/mongo:/data/db
-    image: aashreys/mongo-auth:latest
-    environment:
-      - AUTH=yes
-      - MONGODB_ADMIN_USER=admin
-      - MONGODB_ADMIN_PASS=adminALmfaAf9A
-      - MONGODB_APPLICATION_DATABASE=esspunkt60
-      - MONGODB_APPLICATION_USER=essen
-      - MONGODB_APPLICATION_PASS=essen6003"
+    image: mongo
 
   esspunkt:
     image: de1m/esspunkt60
@@ -24,11 +17,9 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - WEBSOCKETADDR=localhost
+      - WEBSOCKETADDR=mongo
       - WEBSOCKETPORT=5000
       - MONGOADDR=mongo
       - MONGOPORT=27017
       - MONGODB=esspunkt60
-      - MONGOUSER=essen
-      - MONGOPASS=essen6003
     restart: unless-stopped
