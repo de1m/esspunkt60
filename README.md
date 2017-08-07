@@ -23,7 +23,7 @@ You can edit the file or you an set environment variables
 ```
     var mongoAddr = process.env.MONGOADDR || 'localhost';
     var mongoPort = process.env.MONGOPORT || '27017';
-    var mongoDb = process.env.MONGODB || 'esspunkt60';
+    var mongoDb   = process.env.MONGODB   || 'esspunkt60';
     var mongoUser = process.env.MONGOUSER || 'essen';
     var mongoPass = process.env.MONGOPASS || 'essen6003';
 ```
