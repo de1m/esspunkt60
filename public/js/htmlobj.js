@@ -185,7 +185,7 @@ function appendDailyPoint(point) {
             </div>
         </div>
         <div class="col-md-4">
-            <div class="row" name=`+ point.name + `>
+            <div class="row" name="`+ point.name + `">
             <div onclick="addUserButton('`+ point.name + `;` + bestellung + `')" class="btn-toolbar pull-right btn btn-circle btn-success top--30px">
                 <i class="glyphicon glyphicon-plus"></i>
             </div>
