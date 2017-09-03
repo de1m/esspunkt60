@@ -252,6 +252,16 @@ module.exports = {
                 })
             })
 
+            socket.on('addDriver', function(userInfo){
+                eatLocation.addDriver(userInfo, function(err, state){
+                    if(err){
+                        console.log(err);
+                    } else {
+                        io.emit('addedDriver', state);
+                    }
+                })
+            })
+
             socket.on('checkFingerPrint', function (fingerPrint) {
                 user.findPrint(fingerPrint, function (err, result) {
                     if (err) {

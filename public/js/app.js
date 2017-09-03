@@ -1,8 +1,6 @@
 'use strict';
 
-var socketAddr = '_WEBSOCKETADDR_';
-var socketPort = '_WEBSOCKETPORT_';
-var socket = io.connect('http://' + socketAddr + ':' + socketPort);
+var socket = io.connect();
 var uploader = new SocketIOFileClient(socket);
 
 var allInfo = {
@@ -42,12 +40,6 @@ $(document).on('change', '#logoInput', function () {
     readURL(this);
 })
 
-// $(document).keypress(function (e) {
-//     if (e.which == 13) {
-//         console.log(e);
-//     }
-// });
-
 $(document).on('click', 'ul li a', function () {
     var selectedLocation = ($(this).text());
     if ($(this)[0].className == 'eatNameAddPoint') {
@@ -69,9 +61,7 @@ $(document).on('click', 'ul li a', function () {
 
         document.getElementById('LocObjDelPoint').remove();
 
-        //var tet = document.createElement('p').appendChild(document.createTextNode($(this).text()))
         var delButton = `<button class="btn btn-danger" onclick="deleteLocation('` + $(this).text() + `')">Löschen (` + $(this).text() + `)</button>`
-        //colPar.appendChild(tet);
         $(colPar).append(delButton);
         colPar.id = "LocObjDelPoint"
     }
@@ -98,7 +88,6 @@ $(document).on('change', '#menuFile', function () {
 
             });
             uploader.on('complete', function (fileInfo) {
-                //console.log('Upload Complete', fileInfo);
 
                 $('div').remove('.progress .progress-bar');
                 $('.proginfo').text("Upload complete: " + fileInfo.name);
@@ -148,6 +137,14 @@ function deleteuserFinger() {
 function delUser(uName) {
     if (uName.user == allInfo.userObject.name) {
         socket.emit('delUser', uName);
+    } else {
+        $.notify("Das ist nicht Dein Benutzer (Du bist " + allInfo.userObject.name + ")", "warn");
+    }
+}
+
+function addDriver(uName){
+    if(allInfo.userObject.name == uName.user){
+        socket.emit('addDriver', uName);
     } else {
         $.notify("Das ist nicht Dein Benutzer (Du bist " + allInfo.userObject.name + ")", "warn");
     }
@@ -237,9 +234,12 @@ function saveNewEatPoint() {
 
     var formArr = $('#newPoint').serializeArray();
 
+    var str = formArr[0].value;
+    var nameReplaced = str.replace(/'/g, "");
+
     if (formArr.length <= 7) {
         var formData = {
-            'name': formArr[0].value,
+            'name': nameReplaced,
             'beste': false,
             'str': formArr[1].value,
             'plz': formArr[2].value,
@@ -256,7 +256,7 @@ function saveNewEatPoint() {
         }
     } else {
         var formData = {
-            'name': formArr[0].value,
+            'name': nameReplaced,
             'beste': true,
             'str': formArr[2].value,
             'plz': formArr[3].value,
@@ -510,6 +510,10 @@ socket.on('userAdded', function (data) {
     addUserDaily(username);
 })
 
+socket.on('addedDriver', function(drivObj){
+    addDriverHtml(drivObj);
+})
+
 socket.on('userDeleted', function (data) {
     var userInfo = {
         'userName': {
@@ -522,6 +526,11 @@ socket.on('userDeleted', function (data) {
     var toAppend = searchName[0];
     $(toAppend).remove();
     calcurateUserCars(userInfo);
+
+    //delete driver
+    var drivName = document.getElementsByName('drivName' + data.userInfo.user);
+    $(drivName).remove();
+
 })
 
 socket.on('customErr', function(errdata){

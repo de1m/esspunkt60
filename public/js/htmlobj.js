@@ -194,8 +194,10 @@ function appendDailyPoint(point) {
         </div>
         <div class="col-md-3">
             <div class="imgcenter">
-            <div class="carnum", name="carnum`+ point.name + `">0</div>
-            <div class="passnum", name="passnum`+ point.name + `">0</div>
+                <div class="carnum", name="carnum`+ point.name + `">0</div>
+                <div class="passnum", name="passnum`+ point.name + `">0</div>
+            </div>
+            <div class="row" name="driv`+ point.name + `">
             </div>
         </div>
         </div>
@@ -245,6 +247,19 @@ function appendDailyPoint(point) {
             addComment(point.points[0].name + point.location.time + `;` + point.points[0].name);
         }
     });
+
+    //check and add driver
+    var memArr = point.members;
+    memArr.forEach(function(member) {
+        if(member.driver === true){
+            var driver = {
+                member,
+                'loc': point.points[0].name + point.location.time
+            }
+            addDriverHtml(driver);
+        }
+    }, this);
+
 }
 
 function appendComment(commObj) {
@@ -286,6 +301,9 @@ function addUserDaily(data) {
         if (memb == 0) {
             membAppend = `<div class="col-md-12 userNames" name="` + member + data.userName.name + `">
                                 <div class="box">
+                                    <div class="btn btn-default btn-lit pull-left" onclick='addDriver(`+ delObj + `)'>
+                                        <img src="img/steering.png" width=20 height=20></img>
+                                    </div>
                                     <div class="btn btn-danger btn-lit pull-right" onclick='delUser(`+ delObj + `)'>
                                         <i class="glyphicon glyphicon-trash"></i>
                                     </div>
@@ -294,7 +312,10 @@ function addUserDaily(data) {
                              </div>`
         } else {
             membAppend += `<div class="col-md-12 userNames" name="` + member + data.userName.name + `">
-                                <div class="box">
+                                    <div class="box">
+                                        <div class="btn btn-default btn-lit pull-left" onclick='addDriver(`+ delObj + `)'>
+                                        <img src="img/steering.png" width=20 height=20></img>
+                                    </div>
                                     <div class="btn btn-danger btn-lit pull-right" onclick='delUser(`+ delObj + `)'>
                                         <i class="glyphicon glyphicon-trash"></i>
                                     </div>
@@ -314,13 +335,49 @@ function calcurateUserCars(data) {
         var cars = (memNumber - (memNumber % 5)) / 5;
         var passn = memNumber % 5;
     } else {
-        var cars = 0;
+        if(memNumber == 0){
+            var cars = 0;
+        } else {
+            var cars = 1;
+        }
         var passn = memNumber;
     }
     var pasNum = document.getElementsByName('passnum' + data.userName.name)[0];
     var carNum = document.getElementsByName('carnum' + data.userName.name)[0];
     pasNum.innerText = passn;
     carNum.innerText = cars;
+}
+
+function addDriverHtml(drivObj){
+    //drivOjb:
+    // {   
+    //     member: { 
+    //         user: 'name', 
+    //         beste: false, 
+    //         driver: true },
+    //     loc: 'Test11:45' 
+    // }
+    var searchName = document.getElementsByName('driv' + drivObj.loc);
+    var toAppend = searchName[0];
+    var html = '';
+    var calDriver = document.getElementsByName(drivObj.loc + 'calDriver');
+    
+    if(calDriver.length <= 0){
+        html = `<div class="col-md-4 style="height:30px; name="drivName` + drivObj.member.user + `">
+                    <img src="img/driver-logo.png" width=60 height=90 />
+                    <span name="` + drivObj.loc + `calDriver">`+ drivObj.member.user +`</span>
+               </div>`
+    } else {
+        html += `<div class="col-md-4 style="height:30px; name="drivName` + drivObj.member.user + `">
+                    <img src="img/driver-logo.png" width=60 height=90 />
+                    <span name="` + drivObj.loc + `calDriver">`+ drivObj.member.user +`</span>
+                </div>`
+    }
+
+    var findDriver = document.getElementsByName("drivName" + drivObj.member.user);
+    if(findDriver.length <= 0){
+        $(toAppend).append(html);    
+    }
 }
 
 function createBestellModal(name) {

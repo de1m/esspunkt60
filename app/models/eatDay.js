@@ -84,6 +84,37 @@ var addUser = function (userName, callback) {
     })
 }
 
+var addDriver = function(userName, callback){
+    findNameLoc(userName.loc, function(err, result){
+        if(err){
+            return callback(err, null);
+        } else {
+            var members = [];
+            members = result[0].members;
+            var picked = members.find(o => o.user === userName.user);
+            if(picked != undefined){
+                picked.driver = true;
+                var index = members.indexOf(picked);
+                members.splice(index,1);
+                members.push(picked);
+                
+                eatDay.update({ 'name': userName.loc }, { $set: { 'members': members } }, function (err, state) {
+                    if (err) {
+                        return callback(err, null);
+                    } else {
+                        var retObj= {
+                            'member': picked,
+                            'loc': userName.loc
+                        }
+                        return callback(null, retObj);
+                    }
+                })
+
+            }
+        }
+    })
+}
+
 var delUser = function (userName, callback) {
     findNameLoc(userName.loc, function (err, result) {
         if (err) {
@@ -170,6 +201,7 @@ module.exports = {
     findNameLoc,
     getMergeWithTime,
     addUser,
+    addDriver,
     delUser,
     deleteOne,
     addComment

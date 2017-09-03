@@ -7,7 +7,7 @@ services:
     image: mongo
 
   esspunkt:
-    image: de1m/esspunkt60
+    build: .
     depends_on:
       - mongo
     links:

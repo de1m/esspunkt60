@@ -250,6 +250,16 @@ function addUser(userName, callback) {
     })
 }
 
+function addDriver(userName, callback){
+    dailyPoint.addDriver(userName, function(err, result){
+        if(err){
+            return callback(err, null);
+        } else {
+            return callback(null, result);
+        }
+    })
+}
+
 function delUser(userInfo, callback) {
     dailyPoint.delUser(userInfo, function (err, userResult) {
         if (err) {
@@ -344,6 +354,7 @@ module.exports = {
     getDailyPointsWithTime,
     getUser,
     addUser,
+    addDriver,
     delUser,
     deleteDailyPoint,
     deleteLocation,
