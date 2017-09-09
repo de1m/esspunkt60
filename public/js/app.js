@@ -418,7 +418,9 @@ function saveBestellungsname(dPoint) {
 }
 
 function addComment(data) {
-
+    var d = new Date();
+    var n = d.getHours();
+    var m = d.getMinutes();
     var dataArr = data.split(";");
     var dPoint = dataArr[0];
     var point = dataArr[1];
@@ -432,7 +434,8 @@ function addComment(data) {
             'user': user,
             'comment': commentText,
             'dPoint': dPoint,
-            'point': point
+            'point': point,
+            'time': n + ":" + m
         }
         socket.emit('saveComment', commObj);
     }

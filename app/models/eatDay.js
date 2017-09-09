@@ -163,7 +163,8 @@ var addComment = function (commObj, callback) {
             var commentArr = result[0].comments;
             var commentar = {
                 'user': commObj.user,
-                'commentar': commObj.comment
+                'commentar': commObj.comment,
+                'time': commObj.time
             }
             commentArr.push(commentar);
             eatDay.update({ 'name': commObj.dPoint }, { $set: { 'comments': commentArr } }, function (err, state) {

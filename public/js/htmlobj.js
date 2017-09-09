@@ -233,7 +233,8 @@ function appendDailyPoint(point) {
             'user': comment.user,
             'comment': comment.commentar,
             'dPoint': point.name,
-            'point': point.points[0].name
+            'point': point.points[0].name,
+            'time': comment.time
         }
 
         appendComment(commOjb);
@@ -265,10 +266,11 @@ function appendDailyPoint(point) {
 function appendComment(commObj) {
     var user = commObj.user;
     var comment = commObj.comment;
+    var time = commObj.time;
     var panelName = commObj.dPoint;
     var comment = `<div class="panel panel-default commentpanel">
                     <div class="panel-heading comment" style="color:white; background-color: #4cae4c;">
-                        `+ user + `
+                        `+ time + ` ::: ` + user + `
                     </div>
                     <div class="panel-body comment">
                         `+ comment + `
