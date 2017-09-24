@@ -71,8 +71,10 @@ var addUser = function (userName, callback) {
             members = result[0].members;
             var picked = members.find(o => o.user === userName.user);
             if (picked == undefined) {
+                var now = new Date();
+                var startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
                 members.push(memberObj);
-                eatDay.update({ 'name': userName.name }, { $set: { 'members': members } }, function (err, state) {
+                eatDay.update({ 'name': userName.name, created_on: { $gte: startOfToday } }, { $set: { 'members': members } }, function (err, state) {
                     if (err) {
                         return callback(err, null);
                     } else {
@@ -93,12 +95,14 @@ var addDriver = function(userName, callback){
             members = result[0].members;
             var picked = members.find(o => o.user === userName.user);
             if(picked != undefined){
+                var now = new Date();
+                var startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
                 picked.driver = true;
                 var index = members.indexOf(picked);
                 members.splice(index,1);
                 members.push(picked);
                 
-                eatDay.update({ 'name': userName.loc }, { $set: { 'members': members } }, function (err, state) {
+                eatDay.update({ 'name': userName.loc, created_on: { $gte: startOfToday } }, { $set: { 'members': members } }, function (err, state) {
                     if (err) {
                         return callback(err, null);
                     } else {
@@ -122,10 +126,12 @@ var delUser = function (userName, callback) {
         } else {
             var members = result[0].members;
             var picked = members.find(o => o.user === userName.user);
+            var now = new Date();
+            var startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
             if (picked != undefined) {
                 var index = members.indexOf(picked);
                 members.splice(index, 1);
-                eatDay.update({ 'name': userName.loc }, { $set: { 'members': members } }, function (err, state) {
+                eatDay.update({ 'name': userName.loc,created_on: { $gte: startOfToday } }, { $set: { 'members': members } }, function (err, state) {
                     if (err) {
                         return callback(err, null);
                     } else {
