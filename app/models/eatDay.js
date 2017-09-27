@@ -173,7 +173,9 @@ var addComment = function (commObj, callback) {
                 'time': commObj.time
             }
             commentArr.push(commentar);
-            eatDay.update({ 'name': commObj.dPoint }, { $set: { 'comments': commentArr } }, function (err, state) {
+            var now = new Date();
+            var startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            eatDay.update({ 'name': commObj.dPoint, created_on: { $gte: startOfToday } }, { $set: { 'comments': commentArr } }, function (err, state) {
                 if (err) {
                     return callback(err, null);
                 } else {
