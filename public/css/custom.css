@@ -13,11 +13,13 @@
     color: white;
 }
 .greenbox, .box {
-    background: #4cae4c;
-    color: white;
     height: 3em;
     line-height: 3em;
     text-align: center;
+}
+.greenbox {
+    background: #4cae4c;
+    color: white;
 }
 .box {
     line-height: 1.5em;
