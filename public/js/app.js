@@ -419,13 +419,26 @@ function saveBestellungsname(dPoint) {
 
 function addComment(data) {
     var d = new Date();
-    var n = d.getHours();
-    var m = d.getMinutes();
+    var nTemp = d.getHours();
+    var mTemp = d.getMinutes();
     var dataArr = data.split(";");
     var dPoint = dataArr[0];
     var point = dataArr[1];
     var commentText = document.getElementById('commentarInput'+ dPoint).value;
     document.getElementById('commentarInput'+ dPoint).value = '';
+
+    if(nTemp > 9){
+        var n = nTemp;
+    } else {
+        var n = '0' + nTemp;
+    }
+
+    if(mTemp > 9){
+        var m = mTemp;
+    } else {
+        var m = '0' + mTemp
+    }
+
     if (commentText.length <= 0) {
         $.notify('Kein Text eingegeben', "warn");
     } else {
