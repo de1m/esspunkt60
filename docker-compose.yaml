@@ -3,22 +3,24 @@ version: "2"
 services:
   mongo:
     volumes:
-      - /data/mongo:/data/db
+      - ./mongo:/data/db
     image: mongo
-
-  esspunkt:
-    image: de1m/esspunkt60
-    depends_on:
-      - mongo
-    links:
-      - mongo
-    volumes:
-      - /data/upload:/esspunkt60/public/upload
     ports:
-      - "5000:5000"
-    environment:
-      - MONGOADDR=mongo
-      - MONGOPORT=27017
-      - MONGODB=esspunkt60
-      - AUTH=false
-    restart: unless-stopped
+    - "27017:27017"
+
+  # esspunkt:
+  #   image: de1m/esspunkt60
+  #   depends_on:
+  #     - mongo
+  #   links:
+  #     - mongo
+  #   volumes:
+  #     - /data/upload:/esspunkt60/public/upload
+  #   ports:
+  #     - "5000:5000"
+  #   environment:
+  #     - MONGOADDR=mongo
+  #     - MONGOPORT=27017
+  #     - MONGODB=esspunkt60
+  #     - AUTH=false
+  #   restart: unless-stopped
