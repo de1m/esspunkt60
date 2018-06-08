@@ -1,48 +1,41 @@
 <template>
-  <div class="logo">
-    <vk-button size="large" type="primary" style="margin-bottom:0.4em"> <vk-icon icon="plus" ratio="2"></vk-icon> </vk-button>
-    <br/>
-    <vk-button size="small" v-bind:type="userColored"> <vk-icon icon="user"></vk-icon> </vk-button>
-    <vk-button size="small" :disabled="notUserExist"> <vk-icon icon="settings"></vk-icon> </vk-button>
-    <vk-button size="small" v-on:click="getInfo"> <vk-icon icon="info"></vk-icon> </vk-button>
-    <!-- <vk-notification :messages.sync="messages"></vk-notification> -->
+  <div class="main">
+    <header-nav></header-nav>
+    <div class="uk-container uk-container-center uk-container-expand">
+      <div class="uk-grid uk-align-center uk-text-center">
+        <div class="uk-width-auto">
+          <vk-button size="large" type="primary" :disabled="!userAuth" v-on:click="showNewEatPointDialog"><vk-icon icon="plus" ratio="2"></vk-icon></vk-button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import Fingerprint from 'fingerprintjs2'
+import Header from '@/components/Header'
+import { EventBus } from '../ressources/event-bus.js'
 
 export default {
   name: 'Main',
   data: function () {
     return {
-      userColored: 'danger',
-      notUserExist: true
+      userAuth: ''
     }
   },
+  components: {
+    'header-nav': Header
+  },
   methods: {
-    getInfo: function (event) {
-      // this.$socket.emit('emit_met', 'test')
+    showNewEatPointDialog () {
+      this.$router.push('/newpoint')
     }
   },
   beforeMount () {
-    var self = this
-    this.$cookie.set('userLogin_data', 'de1m')
-    let userFromCookie = this.$cookie.get('userLogin_data')
-    if (userFromCookie == null) {
-    } else {
-      Fingerprint().get(function (fprint) {
-        self.$socket.emit('user_login_data', {'username': userFromCookie, 'hash': fprint})
-      })
-    }
-    this.$socket.on('userBackData', function (userBackData) {
-      if (userBackData.auth && userFromCookie === userBackData.user) {
-        console.log('user match')
-        self.userColored = 'primary'
-        self.notUserExist = false
-        // self.messages.push('Test')
-      }
+    let self = this
+    EventBus.$on('eventbus-send-auth', authState => {
+      self.userAuth = authState
     })
+    // var self = this
   }
 }
 </script>

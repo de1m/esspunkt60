@@ -3,8 +3,10 @@
 var Mongoose = require('mongoose');
 
 var userSchema = new Mongoose.Schema({
-    name: String,
-    finger: String
+    username: String,
+    fprint: String,
+    hash: String,
+    stars: Number
 })
 
 var userModel     = Mongoose.model('users', userSchema);

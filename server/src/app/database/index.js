@@ -2,7 +2,7 @@
 
 var Mongoose = require('mongoose');
 var auth = process.env.AUTH || 'false';
-var mongoAddr = process.env.MONGOADDR || 'localhost';
+var mongoAddr = process.env.MONGOADDR || '192.168.42.66';
 var mongoPort = process.env.MONGOPORT || '27017';
 var mongoDb = process.env.MONGODB || 'esspunkt60';
 var mongoUser = process.env.MONGOUSER || 'essen';
@@ -22,7 +22,7 @@ if(auth === true){
     mongoDb;
 }
 
-Mongoose.connect(dbURI, { useMongoClient: true });
+Mongoose.connect(dbURI);
 
 // Throw an error if the connection fails
 Mongoose.connection.on('error', function (err) {

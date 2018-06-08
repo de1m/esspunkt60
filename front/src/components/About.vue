@@ -4,7 +4,7 @@
     <p v-bind:data="dtext">
         {{ dtext }}
     </p>
-    <a href="/">Main</a>
+    <a href="#/">Main</a>
     <br />
     <vk-button v-on:click="greet">Button Test</vk-button>
   </div>

@@ -8,18 +8,20 @@ import VuikitIcons from '@vuikit/icons'
 import Vuikittheme from '@vuikit/theme'
 import VueSocketio from 'vue-socket.io'
 import VueCookie from 'vue-cookie'
+import store from './store/store.js'
 
 Vue.config.productionTip = false
 Vue.use(Vuikit)
 Vue.use(Vuikittheme)
 Vue.use(VuikitIcons)
-Vue.use(VueSocketio, 'http://192.168.100.102:8081')
+Vue.use(VueSocketio, 'http://127.0.0.1:8081')
 Vue.use(VueCookie)
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  components: { App, Vuikit, VuikitIcons },
+  store,
+  components: { App },
   template: '<App/>'
 })
