@@ -239,13 +239,13 @@ function saveNewEatPoint() {
 
     if (formArr.length <= 7) {
         var formData = {
-            'name': nameReplaced,
+            'name': nameReplaced.replace(/</g, "😩").replace(/>/g, "😩"),
             'beste': false,
-            'str': formArr[1].value,
-            'plz': formArr[2].value,
-            'ort': formArr[3].value,
-            'tel': formArr[4].value,
-            'men': formArr[5].value
+            'str': formArr[1].value.replace(/</g, "😩").replace(/>/g, "😩"),
+            'plz': formArr[2].value.replace(/</g, "😩").replace(/>/g, "😩"),
+            'ort': formArr[3].value.replace(/</g, "😩").replace(/>/g, "😩"),
+            'tel': formArr[4].value.replace(/</g, "😩").replace(/>/g, "😩"),
+            'men': formArr[5].value.replace(/</g, "😩").replace(/>/g, "😩")
         }
 
         var tagstemp = formArr[6].value;
@@ -256,13 +256,13 @@ function saveNewEatPoint() {
         }
     } else {
         var formData = {
-            'name': nameReplaced,
+            'name': nameReplaced.replace(/</g, "😩").replace(/>/g, "😩"),
             'beste': true,
-            'str': formArr[2].value,
-            'plz': formArr[3].value,
-            'ort': formArr[4].value,
-            'tel': formArr[5].value,
-            'men': formArr[6].value
+            'str': formArr[2].value.replace(/</g, "😩").replace(/>/g, "😩"),
+            'plz': formArr[3].value.replace(/</g, "😩").replace(/>/g, "😩"),
+            'ort': formArr[4].value.replace(/</g, "😩").replace(/>/g, "😩"),
+            'tel': formArr[5].value.replace(/</g, "😩").replace(/>/g, "😩"),
+            'men': formArr[6].value.replace(/</g, "😩").replace(/>/g, "😩")
         }
 
         var tagstemp = formArr[7].value;
@@ -331,6 +331,7 @@ function disableSave() {
 function saveNewUser() {
     var userfield = document.getElementsByName('userNameFPrint');
     var userName = userfield[0].value;
+    userName = userName.replace(/</g, "😩").replace(/>/g, "😩");
     if (userName.length <= 0) {
         alert('Benutzername wird benötigt');
     } else {
@@ -366,6 +367,7 @@ function deleteLocation(loc) {
 function addNewLocation() {
     $('#configModal').modal('hide');
     var time = document.getElementById('timeVa');
+    time = time.replace(/</g, "😩").replace(/>/g, "😩");
     var locSettings = {
         'name': selectedDailyPoint,
         'time': time.value
@@ -425,6 +427,8 @@ function addComment(data) {
     var dPoint = dataArr[0];
     var point = dataArr[1];
     var commentText = document.getElementById('commentarInput'+ dPoint).value;
+    commentText = commentText.replace(/</g, "😩").replace(/>/g, "😩");
+    
     document.getElementById('commentarInput'+ dPoint).value = '';
 
     if(nTemp > 9){
