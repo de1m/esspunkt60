@@ -370,7 +370,7 @@ function addNewLocation() {
     time = time
     var locSettings = {
         'name': selectedDailyPoint,
-        'time': time.value.replace(/</g, "😩").replace(/>/g, "😩");
+        'time': time.value.replace(/</g, "😩").replace(/>/g, "😩")
     }
     socket.emit('saveDailyPoint', locSettings);
 }
