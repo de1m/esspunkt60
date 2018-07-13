@@ -367,10 +367,10 @@ function deleteLocation(loc) {
 function addNewLocation() {
     $('#configModal').modal('hide');
     var time = document.getElementById('timeVa');
-    time = time.replace(/</g, "😩").replace(/>/g, "😩");
+    time = time
     var locSettings = {
         'name': selectedDailyPoint,
-        'time': time.value
+        'time': time.value.replace(/</g, "😩").replace(/>/g, "😩");
     }
     socket.emit('saveDailyPoint', locSettings);
 }
