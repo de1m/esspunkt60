@@ -22,7 +22,7 @@ if(auth === true){
     mongoDb;
 }
 
-Mongoose.connect(dbURI, { useMongoClient: true });
+Mongoose.connect(dbURI, { useNewUrlParser: true , useUnifiedTopology: true }, );
 
 // Throw an error if the connection fails
 Mongoose.connection.on('error', function (err) {
